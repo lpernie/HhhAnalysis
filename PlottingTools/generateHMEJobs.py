@@ -8,7 +8,7 @@ import sys
 #benchmarks = ["radion_M400","graviton_M400"]
 benchmarks = []
 masses = [260, 270, 300, 350, 400, 450, 500, 550, 600, 650, 800, 900, 1000]
-masses = [300, 500, 900]
+#masses = [300, 500, 900]
 for mass in masses:
 	benchmarks.append("radion_M%d"%mass)
 	#benchmarks.append("graviton_M"+mass)

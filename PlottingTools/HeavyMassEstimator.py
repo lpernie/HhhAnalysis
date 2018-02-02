@@ -1,7 +1,7 @@
 import ROOT
 import numpy as np
 from math import *
-from HardcodeREFPDF import *
+import HardcodeREFPDF  as REFPDF
 
 
 class HeavyMassEstimator(object):
@@ -46,33 +46,8 @@ class HeavyMassEstimator(object):
     htoWW_eta = np.zeros(1, dtype=float); htoWW_phi = np.zeros(1, dtype=float); htoWW_pt = np.zeros(1, dtype=float); htoWW_energy = np.zeros(1, dtype=float)
     htoBB_mass = np.zeros(1, dtype=float); htoWW_mass = np.zeros(1, dtype=float);
     h2tohh_eta = np.zeros(1, dtype=float); h2tohh_phi = np.zeros(1, dtype=float); h2tohh_pt = np.zeros(1, dtype=float); h2tohh_energy = np.zeros(1, dtype=float); h2tohh_mass = np.zeros(1, dtype=float)
-    
+
     """
-    try:
-	    self.onshellWmasspdf = onshellWmasspdf
-	    self.onshellWmasspdf_flag = True
-    except NameError:
-	    self.onshellWmasspdf_flag = False
-
-    try:
-	    self.offshellWmasspdf = hist
-	    self.offshellWmasspdf_flag = True
-    except NameError:
-	    self.offshellWmasspdf_flag = False
-
-    try:
-	    self.onshellnuptpdf = hist
-	    self.onshellnuptpdf_flag = True
-    except NameError:
-	    self.onshellnuptpdf_flag = False
-
-    try:
-	    self.recobjetrescalec1pdf = hist
-	    self.recobjetrescalec1pdf_flag = True
-    except NameError:
-	    self.recobjetrescalec1pdf_flag = False
-
-
     hmetree.Branch('nsolutions', nsolutions, 'nsolutions/I')
     hmetree.Branch('l_onshellW_eta', l_onshellW_eta, 'l_onshellW_eta/D')  
     hmetree.Branch('l_onshellW_phi', l_onshellW_phi, 'l_onshellW_phi/D')  
@@ -130,37 +105,58 @@ class HeavyMassEstimator(object):
     hmetree.Branch('h2tohh_energy', h2tohh_energy, 'h2tohh_energy/D')
     hmetree.Branch('h2tohh_mass', h2tohh_mass, 'h2tohh_mass/D')
     hmetree.Branch('leptonNuPair', leptonNuPair, 'leptonNuPair/B')
+
+    #hmetree.Branch('htoBB_phi', htoBB_phi, 'htoBB_phi/D')
+    #hmetree.Branch('htoBB_pt', htoBB_pt, 'htoBB_pt/D')
+    #hmetree.Branch('htoBB_energy', htoBB_energy, 'htoBB_energy/D')
+    hmetree.Branch('htoBB_mass', htoBB_mass, 'htoBB_mass/D')
+    #hmetree.Branch('htoWW_eta', htoWW_eta, 'htoWW_eta/D')
+    #hmetree.Branch('htoWW_phi', htoWW_phi, 'htoWW_phi/D')
+    #hmetree.Branch('htoWW_pt', htoWW_pt, 'htoWW_pt/D')
+    #hmetree.Branch('htoWW_energy', htoWW_energy, 'htoWW_energy/D')
+    hmetree.Branch('htoWW_mass', htoWW_mass, 'htoWW_mass/D')
+    hmetree.Branch('h2tohh_eta', h2tohh_eta, 'h2tohh_eta/D')
+    hmetree.Branch('h2tohh_phi', h2tohh_phi, 'h2tohh_phi/D')
+    hmetree.Branch('h2tohh_pt', h2tohh_pt, 'h2tohh_pt/D')
+    hmetree.Branch('h2tohh_energy', h2tohh_energy, 'h2tohh_energy/D')
+    hmetree.Branch('h2tohh_mass', h2tohh_mass, 'h2tohh_mass/D')
+    hmetree.Branch('leptonNuPair', leptonNuPair, 'leptonNuPair/B')
     """
 
     def __init__(self):
 	
 	#print "  create a HeavyMassEstimator object "
 	try:
-	    self.onshellWmasspdf = onshellWmasspdf
+	    self.onshellWmasspdf = REFPDF.onshellWmasspdf
 	    self.onshellWmasspdf_flag = True
 	except NameError:
+	    print "Failed to find onshellWmasspdf from hardcorded REFPDF"
 	    self.onshellWmasspdf_flag = False
 
 	try:
-	    self.offshellWmasspdf = hist
+	    self.offshellWmasspdf = REFPDF.offshellWmasspdf
 	    self.offshellWmasspdf_flag = True
 	except NameError:
+	    print "Failed to find offshellWmasspdf from hardcorded REFPDF"
 	    self.offshellWmasspdf_flag = False
 
 	try:
-	    self.onshellnuptpdf = hist
+	    self.onshellnuptpdf = REFPDF.onshellnuptpdf
 	    self.onshellnuptpdf_flag = True
 	except NameError:
+	    print "Failed to find onshellnuptpdf from hardcorded REFPDF"
 	    self.onshellnuptpdf_flag = False
 
 	try:
-	    self.recobjetrescalec1pdf = hist
+	    self.recobjetrescalec1pdf = REFPDF.recobjetrescalec1pdfPU40
 	    self.recobjetrescalec1pdf_flag = True
 	except NameError:
+	    print "Failed to find recobjetrescalec1pdf from hardcorded REFPDF"
 	    self.recobjetrescalec1pdf_flag = False
 
 
 		
+	self.debug = False
         self.hme_h2Mass = ROOT.TH1F("hme_h2Mass","h2 mass from HME",1000, 200.0,1200.0)
         self.hme_h2Mass_correctmunupair = ROOT.TH1F("hme_h2Mass_correctmunupair","h2 mass from HME",1000, 200.0,1200.0)
         self.hme_h2Mass_incorrectmunupair = ROOT.TH1F("hme_h2Mass_incorrectmunupair","h2 mass from HME",1000, 200.0,1200.0)
@@ -254,6 +250,9 @@ class HeavyMassEstimator(object):
 	#print "self.hme_h2Mass entries ",self.hme_h2Mass.GetEntries()," hmetree entries ",self.hmetree.GetEntries()
 	#print "hme_h2MassWeight1 entries ",self.hme_h2MassWeight1.GetEntries()
 	
+
+    def setDebug(self, x):
+	self.debug = x
 
     def setIterations(self, n):
 	self.iterations = int(n)
@@ -444,6 +443,10 @@ class HeavyMassEstimator(object):
 	return True
 
     def runHME(self):
+	    
+	if self.debug:
+	    self.showKinematic()
+
 	if not(self.onshellWmasspdf_flag):
 	    print "no onshellWmasspdf, error!!! "
 	    return  False
@@ -456,7 +459,8 @@ class HeavyMassEstimator(object):
         #PUSample: 25.2, PU0: 14.8
         met_sigma = 25.2
         if not self.recobjetrescalec1pdf_flag:
-		met_sigma = 0.0	
+	    if self.debug:	print "self.recobjetrescalec1pdf_flag is False!"
+	    met_sigma = 0.0	
         #genRandom.SetSeed()
 	while (it < self.iterations ):
 	    it += 1
@@ -467,7 +471,8 @@ class HeavyMassEstimator(object):
 	    rand01 = genRandom.Uniform(0., 1.0)
 	    step = genRandom.Uniform(-10.0, 10.0)
 	    self.wmass_gen[0] = self.getOnshellWMass(self.wmass_gen[0], step, rand01)
-	    #print "it ",it," self.eta_gen[0] ",self.eta_gen[0]," wmass_gen ",self.wmass_gen[0]
+	    if self.debug:
+		print "it ",it," self.eta_gen[0] ",self.eta_gen[0]," wmass_gen ",self.wmass_gen[0]
 	    #update met 
 	    if self.recobjetrescalec1pdf_flag:
 		while not self.bjetsCorrection():
@@ -483,7 +488,8 @@ class HeavyMassEstimator(object):
 	    self.htoBB_p4 = self.b1jet_p4 * self.b1rescalefactor[0] + self.b2jet_p4 * self.b2rescalefactor[0]
 	    self.metpx_corr[0]= met_corr.Px()
 	    self.metpy_corr[0] = met_corr.Py()
-            #print "met_px ",self.met.Px()," met_py ",self.met.Py()," after correction px ",met_corr.Px()," py ",met_corr.Py()
+    	    if self.debug:
+		print "met_px ",self.met.Px()," met_py ",self.met.Py()," after correction px ",met_corr.Px()," py ",met_corr.Py()
 	    self.nsolutions[0] = 0
 	    isolution = 0
 	    solutions = [False, False, False, False]
@@ -505,7 +511,8 @@ class HeavyMassEstimator(object):
 		    self.nsolutions[0] += 1
 	 	isolution += 1 
 	    isolution = 0
-	    if self.nsolutions[0] == 0:#no soution in this iterations
+	    if self.nsolutions[0] == 0:#no solution in this iterations
+	    	if self.debug:	print " no solution in this iterations "
 	 	continue
 	    self.weight[0] = 1.0/float(self.nsolutions[0])
 	    while isolution < len(solutions):
@@ -524,7 +531,8 @@ class HeavyMassEstimator(object):
 
 		if (fabs(self.htoWW_p4.M() - self.hmass_gen[0])>1.0):
 		    print "Error!! hmass_gen ", self.hmass_gen[0], " higgs mass from HME htoWW_p4 ", self.htoWW_p4.M()
-		#print "get this h2tohh_mass ",self.h2tohh_p4.M()," iter ",it
+		if self.debug:
+		    print "it ",it, " get this h2tohh_mass ",self.h2tohh_p4.M()," higgs from WW ", self.htoWW_p4.M()," higgs from bb ", self.htoBB_p4.M()
 		self.l_onshellW_eta[0] = self.lepton_onshellW_p4.Eta()
 		self.l_onshellW_phi[0] = self.lepton_onshellW_p4.Phi()
 		self.l_onshellW_pt[0] = self.lepton_onshellW_p4.Pt()
@@ -568,12 +576,6 @@ class HeavyMassEstimator(object):
     		self.h2tohh_energy[0] = self.h2tohh_p4.Energy()
     		self.h2tohh_mass[0] = self.h2tohh_p4.M()
 
-    		##weight2 results
-                self.weight2[0] = self.weight[0] * self.getWeightFromHist(self.offshellWmasspdf, self.offshellW_mass[0])
-    		self.hme_h2MassWeight2.Fill(self.h2tohh_mass[0], self.weight2[0])
-                self.hme_offshellWmass.Fill(self.offshellW_mass[0])
-    		self.hme_h2MassAndoffshellWmass_weight2.Fill(self.h2tohh_mass[0], self.offshellW_mass[0], self.weight2[0])
-
                 ##check the offshell Wmass and h->WW mass.
     		if (self.offshellW_mass[0]>self.htoWW_mass[0]/2.0):
 		    #print "self.htoWW_mass[0] ",self.htoWW_mass[0]," self.offshellW_mass[0] ",self.offshellW_mass[0]," weight from offshellW mass ",self.weight2[0]," onshell wmass ", self.onshellW_mass[0]
@@ -585,13 +587,23 @@ class HeavyMassEstimator(object):
 		    self.h2tohh_eta[0] = 1000000.0; self.h2tohh_phi[0] = 0.0
 		else:
 		    self.h2tohh_eta[0] = self.h2tohh_p4.Eta(); self.h2tohh_phi[0] = self.h2tohh_p4.Phi()
+
+
 		self.hme_h2Mass.Fill(self.h2tohh_mass[0], self.weight[0])
+    		self.hme_offshellWmass.Fill(self.offshellW_mass[0], self.weight[0])
 	        #if self.onshellnuptpdf_flag:
     		self.hme_h2MassAndoffshellWmass.Fill(self.h2tohh_mass[0], self.offshellW_mass[0], self.weight[0])
 
+    		##weight1 results
 		self.weight1[0] = self.weight[0] * self.getWeightFromHist(self.onshellnuptpdf, self.nu_onshellW_pt[0]) 
     		self.hme_h2MassWeight1.Fill(self.h2tohh_mass[0], self.weight1[0])
     		self.hme_h2MassAndoffshellWmass_weight1.Fill(self.h2tohh_mass[0], self.offshellW_mass[0], self.weight1[0])
+
+    		##weight2 results
+                self.weight2[0] = self.weight[0] * self.getWeightFromHist(self.offshellWmasspdf, self.offshellW_mass[0])
+    		self.hme_h2MassWeight2.Fill(self.h2tohh_mass[0], self.weight2[0])
+                self.hme_offshellWmass.Fill(self.offshellW_mass[0])
+    		self.hme_h2MassAndoffshellWmass_weight2.Fill(self.h2tohh_mass[0], self.offshellW_mass[0], self.weight2[0])
 
 
 		self.leptonNuPair[0]  = self.correctmunupair
@@ -603,6 +615,9 @@ class HeavyMassEstimator(object):
     		#self.hmetree.Fill()
 	 	isolution += 1 
 	##### end of iteration
+
+
+
 
 
 

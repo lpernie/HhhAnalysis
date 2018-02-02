@@ -207,8 +207,15 @@ def initbr():
     passpre[0] = 0
     hme_h2mass_gen[0] = -1
     hme_h2mass_reco[0] = -1
+    hme_mean_reco[0] = -1
+    hme_stddev_reco[0] = -1
+    hme_entry_peak_reco[0] = -1
+    hme_h2mass_weight2_reco[0] = -1
+    hme_mean_weight2_reco[0] = -1
+    hme_stddev_weight2_reco[0] = -1
+    hme_entry_peak_weight2_reco[0] = -1
     #print "hme_bins ",hme_bins
-    hme_entries_reco[0] = 0.0
+    hme_entries_reco[0] = -1
     for i in range(len(hme_bins)):
 	hme_bins[i][0] = 0.0
 
@@ -224,6 +231,7 @@ for nEv in range(nStart, nEnd):
   if (doTest and nEv-nStart>=100):
       break
 
+  print "nEv ",nEv
   if nEv == nStart:
       print "First event to run: ",nEv, " last event ", nEnd," HME iterations ",args.iterations
   TCha.GetEntry(nEv)
@@ -357,9 +365,16 @@ for nEv in range(nStart, nEnd):
       #hme.setrecobjetrescalec1pdf(recobjetrescalec1pdfPU40)
       #hme.showKinematic()
       hme.setIterations(args.iterations)
+      #hme.setDebug(True)
       hme.runHME()
       #hme.hme_offshellWmass.SetName("hme_offshellWmass_TCha.d_genlTCha.e"%nEv)
-      if hme.hme_h2Mass.GetEntries()>0 and hme.hme_h2Mass.GetXaxis().GetBinCenter(hme.hme_h2Mass.GetMaximumBin())>=250.0:
+      if hme.hme_h2Mass.GetEntries() <= 0:
+          print "NO solution found!!!!! "
+      elif hme.hme_h2Mass.GetEntries() >0 and  hme.hme_h2Mass.GetXaxis().GetBinCenter(hme.hme_h2Mass.GetMaximumBin()) < 249.0 :
+          print "Num solutions ",hme.hme_h2Mass.GetEntries()," BUT the maximum is ",hme.hme_h2Mass.GetXaxis().GetBinCenter(hme.hme_h2Mass.GetMaximumBin())
+	  hme.hme_h2Mass.Print("ALL")
+
+      if hme.hme_h2Mass.GetEntries()>0 and hme.hme_h2Mass.GetXaxis().GetBinCenter(hme.hme_h2Mass.GetMaximumBin())>=250.0 :
 	  print "Reco Level most probable reco mass ",hme.hme_h2Mass.GetXaxis().GetBinCenter(hme.hme_h2Mass.GetMaximumBin())," entries ",hme.hme_h2Mass.GetEntries()," stddev ",hme.hme_h2Mass.GetStdDev(1)
 	  hme.hme_h2Mass.SetName("hme_h2Mass_ev%d_recolevel"%nEv)
           hme.hme_h2MassWeight1.SetName("hme_h2MassWeight1_ev%d_recolevel"%nEv)

@@ -13,8 +13,9 @@ outAnalist = {"TT":["/fdata/hepx/store/user/lpernie/TTTo2L2Nu_13TeV-powheg/crab_
 
 outAnalist["radion_M260"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2VTo2L2Nu_M-260_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2VTo2L2Nu_M-260_narrow_13TeV-madgraph-v2/170626_120012/"]
 outAnalist["radion_M270"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2VTo2L2Nu_M-270_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2VTo2L2Nu_M-270_narrow_13TeV-madgraph-v2/170626_120027/"]
-outAnalist["radion_M300"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2VTo2L2Nu_M-300_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2VTo2L2Nu_M-300_narrow_13TeV-madgraph-v2/170626_120045/"]
-outAnalist["radion_M350"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2VTo2L2Nu_M-350_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2VTo2L2Nu_M-300_narrow_13TeV-madgraph-v2/170626_120104/"]
+#outAnalist["radion_M300"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2VTo2L2Nu_M-300_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2VTo2L2Nu_M-300_narrow_13TeV-madgraph-v2/170626_120045/"]
+outAnalist["radion_M300"] = ['/fdata/hepx/store/user/tahuang/MC_Hhh_analysis_20170715/GluGluToBulkGravitonToHHTo2B2VTo2L2Nu_M-300_narrow_13TeV-madgraph-v2/crab_GluGluToBulkGravitonToHHTo2B2VTo2L2Nu_M-300_narrow_13TeV-madgraph-v2/170716_212458/0000/']
+outAnalist["radion_M350"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2VTo2L2Nu_M-350_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2VTo2L2Nu_M-350_narrow_13TeV-madgraph-v2/170626_120104/"]
 outAnalist["radion_M400"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2VTo2L2Nu_M-400_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2VTo2L2Nu_M-400_narrow_13TeV-madgraph-v2/170626_120127/"]
 outAnalist["radion_M450"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2VTo2L2Nu_M-450_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2VTo2L2Nu_M-450_narrow_13TeV-madgraph-v2/170626_120144/"]
 outAnalist["radion_M500"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2VTo2L2Nu_M-500_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2VTo2L2Nu_M-500_narrow_13TeV-madgraph-v2/170626_120158/"]
@@ -57,18 +58,38 @@ outAnalist["RadionToHHTo2B2ZTo2L2J_M800"] = ["/fdata/hepx/store/user/tahuang/MC_
 outAnalist["RadionToHHTo2B2ZTo2L2J_M900"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2ZTo2L2J_M-900_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2ZTo2L2J_M-900_narrow_13TeV-madgraph-v2/170626_082042/0000/"]
 outAnalist["RadionToHHTo2B2ZTo2L2J_M1000"] = ["/fdata/hepx/store/user/tahuang/MC_Hhh_analysis/GluGluToRadionToHHTo2B2ZTo2L2J_M-1000_narrow_13TeV-madgraph-v2/crab_GluGluToRadionToHHTo2B2ZTo2L2J_M-1000_narrow_13TeV-madgraph-v2/170626_082100/0000/"]
 
-masses = [260, 270, 300, 350, 400, 450, 500, 550, 600, 650, 800, 900, 1000]
 sampleFullName = {"TT":"TTTo2L2Nu_13TeV-powheg",
-    		  "DY":"DYToLL_2J_13TeV-amcatnloFXFX-pythia8",
+     		  "DYM10to50":"DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8",
+		  "DYToLL0J":"DYToLL_0J_13TeV-amcatnloFXFX-pythia8",
+		  "DYToLL1J":"DYToLL_1J_13TeV-amcatnloFXFX-pythia8",
+    		  "DYToLL2J":"DYToLL_2J_13TeV-amcatnloFXFX-pythia8",
 		  "VV":"WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8",
-		  "sT":"ST_tW_top_5f_NoFullyHadronicDecays_13TeV-powheg_TuneCUETP8M1",
+		  "sT_antitop":"ST_tW_antitop_5f_NoFullyHadronicDecays_13TeV-powheg_TuneCUETP8M1",
+		  "sT_top":"ST_tW_top_5f_noFullyHadronicDecays_13TeV-powheg_TuneCUETP8M1",
 		  "Wjet":"WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8",
 		  "ttV":"TTZToLLNuNu_M-10_TuneCUETP8M1_13TeV-amcatnlo-pythia8"
 		}
 
-for mass in masses:
+massesall = [260, 270, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 900, 1000]
+for mass in massesall:
    sampleFullName["radion_M%d"%mass] = "GluGluToRadionToHHTo2B2VTo2L2Nu_M-%d_v2"%mass
    sampleFullName["graviton_M%d"%mass] = "GluGluToBulkGravitonToHHTo2B2VTo2L2Nu_M-%d_v2"%mass
    sampleFullName["RadionToHHTo2B2ZTo2L2J_M%d"%mass] = "RadionToHHTo2B2ZTo2L2J_M%d"%mass
 
+Louvaindir = "/fdata/hepx/store/user/tahuang/HHNTuples/"
+Ntuplelist_Louvain = {"DYM10to50" :[Louvaindir+"DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"],
+                      "DYToLL0J"  :[Louvaindir+"DYToLL_0J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"],
+	              "DYToLL1J"  :[Louvaindir+"DYToLL_1J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"],
+	              "DYToLL2J"  :[Louvaindir+"DYToLL_2J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"],
+		      "sT_antitop"    :[Louvaindir+"ST_tW_antitop_5f_noFullyHadronicDecays_13TeV-powheg_Summer16MiniAODv2_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"],
+		      "sT_top":[Louvaindir+"ST_tW_top_5f_noFullyHadronicDecays_13TeV-powheg_Summer16MiniAODv2_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"],
+		      "TT"  :[Louvaindir+"TTTo2L2Nu_13TeV-powheg_Summer16MiniAODv2_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"]
 
+}
+
+masses = [260, 270, 300, 350, 400, 450, 500, 550, 600, 650, 800, 900]
+for mass in masses:
+    Ntuplelist_Louvain["graviton_M%d"%mass] = [Louvaindir+"GluGluToBulkGravitonToHHTo2B2VTo2L2Nu_M-%d_narrow_Summer16MiniAODv2_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"%(mass)]
+    Ntuplelist_Louvain["radion_M%d"%mass] = [Louvaindir+"GluGluToRadionToHHTo2B2VTo2L2Nu_M-%d_narrow_Summer16MiniAODv2_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"%mass]
+Ntuplelist_Louvain["graviton_M700"] = [Louvaindir+"GluGluToBulkGravitonToHHTo2B2VTo2L2Nu_M-700_narrow_Summer16MiniAODv2_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"]
+Ntuplelist_Louvain["radion_M750"] = [Louvaindir+"GluGluToRadionToHHTo2B2VTo2L2Nu_M-750_narrow_Summer16MiniAODv2_v5.0.1+80X_HHAnalysis_2017-03-01.v0_histos.root"]
